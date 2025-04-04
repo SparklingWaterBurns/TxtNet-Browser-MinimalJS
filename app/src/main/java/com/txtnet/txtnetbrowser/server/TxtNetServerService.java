@@ -777,7 +777,7 @@ In activity:
         Elements scriptTags = base.getElementsByTag("script");
         for (Element script : scriptTags) {
             //finish later im tired, todo: get string or smth and use for loop to check for functions and unncessary code.
-            String scriptcontent = script.innerHTML();
+            String scriptcontent = script.innerHtml();
             String newscriptcontent = "";
             String findStrAlert = "alert(";
             String findStrLocationHref = "window.location.href";
@@ -788,12 +788,31 @@ In activity:
             
             //alert
             while (lastIndex != -1) {
-            
-                lastIndex = str.indexOf(findStr, lastIndex);
-            
+                boolean isUsingDoubleQuotation = false;
+                int endOfStr = 0;
+                int endOfAlert = 0;
+                lastIndex = scriptcontent.indexOf(findStrAlert, lastIndex);
+                if (scriptcontent.substring(lastIndex+6,lastIndex+7) == '"') {
+                    isUsingDoubleQuotation = true;
+                }
+                for (int i = lastIndex+7; i <= scriptcontent.length(); i++) {
+                      if (isUsingDoubleQuotation) {
+                          if (scriptcontent.substring(i,i+1)=='"') {
+                              endOfStr = i-1;
+                              endOfAlert = i+1;
+                              break;
+                          }
+                      } else {
+                          if (scriptcontent.substring(i,i+1)=="'") {
+                              endOfStr = i-1;
+                              endOfAlert = i+1;
+                              break;
+                          }
+                      }
+                }
                 if (lastIndex != -1) {
                     count1++;
-                    lastIndex += findStr.length();
+                    lastIndex += findStrAlert.length();
                 }
             }
 
