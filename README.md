@@ -1,4 +1,8 @@
-﻿# TxtNet Browser
+# forked
+this is a forked version of txtnet that allows very barebones JS support. Only things like onClick attribute, redirect code, and alert() will be supported
+don't expect things to work 100% of the time
+ 
+ # TxtNet Browser
 ### Browse the Web over SMS, no WiFi or Mobile Data required!
 <p align="center"><img src="https://github.com/lukeaschenbrenner/TxtNet-Browser/raw/master/app/src/main/ic_launcher-playstore.png" alt="App Icon" width="200"/></p>  
 
