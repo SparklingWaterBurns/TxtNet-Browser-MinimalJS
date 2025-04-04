@@ -777,6 +777,26 @@ In activity:
         Elements scriptTags = base.getElementsByTag("script");
         for (Element script : scriptTags) {
             //finish later im tired, todo: get string or smth and use for loop to check for functions and unncessary code.
+            String scriptcontent = script.innerHTML();
+            String newscriptcontent = "";
+            String findStrAlert = "alert(";
+            String findStrLocationHref = "window.location.href";
+            String findStrLocationReplace = "window.location.replace(";
+            String findStrLocationReplace2 = "window.location.replace (";
+            int lastIndex = 0;
+            int count1 = 0;
+            
+            //alert
+            while (lastIndex != -1) {
+            
+                lastIndex = str.indexOf(findStr, lastIndex);
+            
+                if (lastIndex != -1) {
+                    count1++;
+                    lastIndex += findStr.length();
+                }
+            }
+
         }
         
         base.traverse(myNodeVisitor);
