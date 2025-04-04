@@ -730,7 +730,7 @@ In activity:
         return url;
 
     }
-    private static final String[] VALID_TAGS = {"div", "base", "a", "abbr", "address", "article", "aside", "audio", "b", "bdi", "bdo", "blockquote", "body", "br", "button", "caption", "center", "cite", "code", "col", "colgroup", "dd", "del", "details", "dfn", "dialog", "dl", "em", "fieldset", "figure", "footer", "form", "font", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr", "html", "i", "input", "ins", "keygen", "legend", "li", "link", "main", "mark", "menu", "menuitem", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "samp", "section", "select", "small", "source", "span", "strong", "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "u", "ul", "wbr", "img"};
+    private static final String[] VALID_TAGS = {"div", "base", "a", "abbr", "address", "article", "aside", "audio", "b", "bdi", "bdo", "blockquote", "body", "br", "button", "caption", "center", "cite", "code", "col", "colgroup", "dd", "del", "details", "dfn", "dialog", "dl", "em", "fieldset", "figure", "footer", "form", "font", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr", "html", "i", "input", "ins", "keygen", "legend", "li", "link", "main", "mark", "menu", "menuitem", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "script", "samp", "section", "select", "small", "source", "span", "strong", "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "u", "ul", "wbr", "img"};
     private static final String[] VALID_ATTRIBUTES = {"title", "alt", "href", "width", "height", "cellpadding", "cellspacing", "border", "bgcolor", "valign", "align", "halign", "colspan", "size", "color", "action", "method", "type", "size", "name", "value", "alink", "link", "text", "vlink", "checked", "maxlength", "for", "start", "selected", "valuetype", "multiple", "rules", "summary", "headers", "align", "bgcolor", "char", "charoff", "height", "scope", "valign", "width", "color", "face", "span", "datetime", "cols", "rows", "readonly", "label", "nowrap", "align", "border", "char", "cite", "compact", "disabled", "longdesc", "name", "value", "valign", "vspace", "onClick"};
 
     static String sanitizeHtml(String input){
@@ -771,6 +771,14 @@ In activity:
         }
         //Log.i("HTML", "After unwrap: " + base.outerHtml());
 
+        //JavaScript
+        //Now: alert(), window.location.href/window.location.redirect()
+        //Planned: functions.
+        Elements scriptTags = base.getElementsByTag("script");
+        for (Element script : scriptTags) {
+            //finish later im tired, todo: get string or smth and use for loop to check for functions and unncessary code.
+        }
+        
         base.traverse(myNodeVisitor);
 
         //Log.i("HTML", "After visiting: " + base.outerHtml());
