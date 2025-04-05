@@ -777,35 +777,59 @@ In activity:
         Elements scriptTags = base.getElementsByTag("script");
         for (Element script : scriptTags) {
             //finish later im tired, todo: get string or smth and use for loop to check for functions and unncessary code.
-            String scriptcontent = script.innerHtml();
+            String scriptcontent = script.html();
             String newscriptcontent = "";
             String findStrAlert = "alert(";
+            String findStrAlert2 = "alert (";
             String findStrLocationHref = "window.location.href";
             String findStrLocationReplace = "window.location.replace(";
             String findStrLocationReplace2 = "window.location.replace (";
             int lastIndex = 0;
             int count1 = 0;
+            boolean noInstancesOfAlert = false;
+            boolean noInstancesOfLocationReplace = false;
+            boolean noJSAvailable = false;
             
-            //alert
+            //Clean JS
             while (lastIndex != -1) {
+                boolean alreadyFoundBeginningQuotes = false;
                 boolean isUsingDoubleQuotation = false;
+                int startOfStr = 0;
                 int endOfStr = 0;
-                int endOfAlert = 0;
                 lastIndex = scriptcontent.indexOf(findStrAlert, lastIndex);
-                if (scriptcontent.substring(lastIndex+6,lastIndex+7) == '"') {
-                    isUsingDoubleQuotation = true;
+                if (lastIndex == -1) {
+                    noInstancesOfAlert = true;
+                    lastIndex = scriptcontent.indexOf(findStrLocationReplace, lastIndex);
+                    if (lastIndex == -1) {
+                        noJSAvailable = true;
+                        break;
+                    }
                 }
-                for (int i = lastIndex+7; i <= scriptcontent.length(); i++) {
+                if (!alreadyFoundBeginningQuotes) {
+                    if (scriptcontent.substring(lastIndex+6,lastIndex+7) == "\"") {
+                        startOfStr = lastIndex+7;
+                        alreadyFoundBeginningQuotes = true;
+                        isUsingDoubleQuotation = true;
+                    } else if (scriptcontent.substring(lastIndex+6,lastIndex+7) == "'") {
+                        startOfStr = lastIndex+7;
+                        alreadyFoundBeginningQuotes = true;
+                        isUsingDoubleQuotation = false;
+                    } else {
+                        //invalid code; break.
+                        break;
+                    }
+                }
+                for (int i = startOfStr; i <= scriptcontent.length(); i++) {
                       if (isUsingDoubleQuotation) {
-                          if (scriptcontent.substring(i,i+1)=='"') {
+                          if (scriptcontent.substring(i,i+1)=="\"") {
                               endOfStr = i-1;
-                              endOfAlert = i+1;
+                              newscriptcontent = newscriptcontent + "alert(\"" + scriptcontent.substring(startOfStr,endOfStr) + "\");";
                               break;
                           }
-                      } else {
+                    } else {
                           if (scriptcontent.substring(i,i+1)=="'") {
                               endOfStr = i-1;
-                              endOfAlert = i+1;
+                              newscriptcontent = newscriptcontent + "alert(\"" + scriptcontent.substring(startOfStr,endOfStr) + "\");";
                               break;
                           }
                       }
