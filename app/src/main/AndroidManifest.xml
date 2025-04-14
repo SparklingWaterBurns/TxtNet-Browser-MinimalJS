@@ -84,6 +84,7 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
+                <data android:host="about:blank" />
             </intent-filter>
         </activity>
         <activity
