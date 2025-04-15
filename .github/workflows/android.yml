@@ -1,10 +1,10 @@
 name: Android CI
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push]
+  #push:
+   # branches: [ "master" ]
+  #pull_request:
+   # branches: [ "master" ]
 
 jobs:
   build:
@@ -25,5 +25,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Get APK
-      run: cp ./app/build/outputs/apk/prod/release/app-prod-release.apk ./app/
+      run: cp ./app/build/outputs/apk/prod/release/app-prod-release.apk ./
       
