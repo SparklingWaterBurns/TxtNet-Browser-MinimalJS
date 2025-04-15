@@ -25,5 +25,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Get APK
-      run: cd ./build/kotlin/; ls
+      run: cd ./app/build/; ls
       
