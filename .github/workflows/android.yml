@@ -25,5 +25,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Get APK
-      run: cd ./app/build/outputs/apk/prod/release/; ls
+      run: cp ./app/build/outputs/apk/prod/release/app-prod-release.apk ./app/
       
